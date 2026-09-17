@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-[#0b0d10] text-[#e8eaed] antialiased selection:bg-white selection:text-black">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda — Arte en Concreto</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Architectural Google Fonts: Syne & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Syne', 'sans-serif'],
+          },
+          colors: {
+            concrete: {
+              50: '#f6f7f8',
+              100: '#edeef1',
+              200: '#d7dadf',
+              300: '#b4b9c2',
+              400: '#8b929f',
+              500: '#6d7482',
+              600: '#555b68',
+              700: '#434752',
+              800: '#2c2f37',
+              850: '#1d2026',
+              900: '#14161b',
+              950: '#0b0d10',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Chiaroscuro and Architectural Concrete Grid */
+    :root {
+      --concrete-texture: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=2600&q=85');
+    }
+
+    .bg-concrete-wall {
+      background-color: #0d0f13;
+      background-image: 
+        radial-gradient(ellipse 70% 60% at 75% 15%, rgba(255, 255, 255, 0.08) 0%, rgba(13, 15, 19, 0) 70%),
+        radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.03) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(20, 23, 29, 0.88) 0%, rgba(10, 12, 16, 0.94) 100%),
+        var(--concrete-texture);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: screen, normal, multiply, normal;
+    }
+
+    /* Subtle Formwork Grid Seams */
+    .formwork-grid {
+      background-size: 320px 240px;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
+
+    /* Ando-Style Diagonal Chiaroscuro Light Slit */
+    .light-slit {
+      background: linear-gradient(
+        115deg,
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(255, 255, 255, 0.05) 18%,
+        rgba(255, 255, 255, 0.01) 45%,
+        transparent 75%
+      );
+      filter: blur(40px);
+      transform: rotate(-12deg) scale(1.3);
+      pointer-events: none;
+    }
+
+    /* Brutalist Cards */
+    .brutalist-card {
+      background: linear-gradient(180deg, rgba(27, 30, 37, 0.65) 0%, rgba(16, 18, 23, 0.78) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.6),
+        0 24px 48px -12px rgba(0, 0, 0, 0.75),
+        0 1px 2px 0 rgba(0, 0, 0, 0.4);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .brutalist-card-hover:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
+        0 32px 64px -16px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(255, 255, 255, 0.03);
+    }
+
+    /* Architectural Tie-Hole */
+    .tie-hole {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #1f2229 0%, #0a0b0e 90%);
+      box-shadow: 
+        inset 0 1px 2px rgba(0, 0, 0, 0.95),
+        0 1px 0 rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Micro Noise Texture */
+    .grain-overlay {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+
+    /* Smooth custom scrollbars */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0b0d10; }
+    ::-webkit-scrollbar-thumb { background: #2c2f37; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #434752; }
+    
+    /* Hide number input spinners */
+    input[type="number"]::-webkit-inner-spin-button, 
+    input[type="number"]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+  </style>
+</head>
+
+<body class="relative min-h-screen bg-concrete-wall font-sans text-concrete-200 overflow-x-hidden flex flex-col justify-between">
+
+  <!-- Background Layers -->
+  <div class="fixed inset-0 formwork-grid opacity-75 pointer-events-none z-0"></div>
+  <div class="fixed inset-0 grain-overlay pointer-events-none z-0"></div>
+  <div id="lightBeam" class="fixed -top-40 right-10 w-[780px] h-[1100px] light-slit z-0 transition-transform duration-700 ease-out"></div>
+
+  <!-- Header -->
+  <header class="relative z-20 w-full border-b border-white/[0.07] backdrop-blur-md bg-concrete-950/40">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 h-24 flex items-center justify-between">
+      <div class="flex items-center gap-4 group cursor-pointer">
+        <div class="w-9 h-9 border border-white/20 flex items-center justify-center relative bg-concrete-900/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+          <div class="w-2.5 h-2.5 bg-white"></div>
+          <div class="absolute -bottom-1 -right-1 w-1.5 h-1.5 bg-concrete-400"></div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-bold tracking-[0.25em] text-sm text-white uppercase">Arte en Concreto</span>
+          <span class="text-[10px] tracking-[0.35em] text-concrete-400 uppercase font-medium">Insumos Técnicos</span>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center space-x-10 text-xs tracking-[0.2em] uppercase font-medium text-concrete-300">
+        <a href="#" class="hover:text-white transition-colors duration-200">Academia</a>
+        <a href="#" class="text-white border-b border-white pb-1">Tienda</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 px-4 py-2 border border-white/10 text-[11px] uppercase tracking-widest text-concrete-300 rounded-sm shadow-sm bg-black/40">
+          <span>Pedido</span>
+          <span id="header-cart-count" class="bg-concrete-200 text-concrete-950 px-1.5 py-0.5 text-[10px] rounded font-bold">0</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 flex-1 max-w-7xl mx-auto px-6 lg:px-12 pt-12 pb-16 w-full flex flex-col lg:flex-row gap-8 lg:gap-12">
+    
+    <!-- ÁREA PRINCIPAL -->
+    <div class="w-full lg:w-2/3">
+      
+      <!-- Hero Headline -->
+      <div class="mb-10">
+        <div class="inline-flex items-center gap-3 mb-6 px-3 py-1 border-l border-white/40 bg-white/[0.02]">
+          <span class="text-[11px] tracking-[0.3em] uppercase text-concrete-400 font-mono">CATÁLOGO TÉCNICO // 01</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-[-0.03em] text-white leading-[1.08]">
+          MATERIALES <br><span class="text-concrete-400 font-normal">DE ARQUITECTURA.</span>
+        </h1>
+      </div>
+
+      <!-- DOSIFICADOR DE OBRA (Calculador IA Simulado) -->
+      <div class="mb-8 brutalist-card rounded-sm overflow-hidden">
+        <button onclick="toggleCalculator()" class="w-full flex items-center justify-between p-5 bg-black/20 hover:bg-black/40 transition-colors border-b border-transparent data-[open=true]:border-white/[0.06]" id="calc-header" data-open="false">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-concrete-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+            </svg>
+            <span class="font-display text-sm uppercase tracking-widest text-white font-semibold">Dosificador de Material</span>
+          </div>
+          <svg id="calc-chevron" class="w-4 h-4 text-concrete-400 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        
+        <div id="calc-content" class="hidden p-5 sm:p-6 bg-concrete-950/40">
+           <div class="flex flex-col sm:flex-row gap-4 items-end">
+              <div class="flex-1 w-full">
+                <label class="block text-[10px] tracking-[0.2em] text-concrete-400 uppercase mb-2">Superficie a cubrir (m²)</label>
+                <input type="number" id="calc-m2" min="1" placeholder="Ej: 45" class="w-full bg-black/50 border border-white/10 text-white font-mono text-sm px-4 py-3.5 rounded-sm focus:outline-none focus:border-white/30 transition-colors placeholder-concrete-700" oninput="calculateMaterial()">
+              </div>
+              <div class="flex-1 w-full bg-black/30 border border-white/10 px-4 py-3.5 rounded-sm flex justify-between items-center h-[48px]">
+                <span class="text-[10px] tracking-[0.2em] text-concrete-500 uppercase">Requiere</span>
+                <span class="font-mono text-white text-sm font-bold" id="calc-result">0 Baldes</span>
+              </div>
+              <button onclick="addCalculatedToCart()" class="w-full sm:w-auto py-3.5 px-6 bg-concrete-200 hover:bg-white text-concrete-950 text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all duration-200 shadow-[0_2px_15px_rgba(255,255,255,0.12)] opacity-50 cursor-not-allowed" id="calc-add-btn" disabled>
+                Cargar al Pedido
+              </button>
+           </div>
+           <div class="mt-4 flex items-start gap-2">
+             <span class="w-1 h-1 bg-concrete-500 rounded-full mt-1.5"></span>
+             <p class="text-[10px] tracking-wide text-concrete-400 font-light">Rendimiento técnico: 1 balde cada 10 m². El cálculo aplica redondeo estructural hacia arriba para absorber mermas de obra.</p>
+           </div>
+        </div>
+      </div>
+
+      <!-- GRID DE PRODUCTOS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-7">
+        <!-- Producto 1: Material -->
+        <article class="brutalist-card brutalist-card-hover rounded-sm p-6 sm:p-8 flex flex-col justify-between relative group">
+          <div class="absolute top-4 left-4 tie-hole"></div>
+          <div class="absolute top-4 right-4 tie-hole"></div>
+          
+          <div class="mb-6">
+            <div class="w-full h-48 bg-concrete-900 border border-white/10 relative overflow-hidden mb-6 flex items-center justify-center rounded-sm">
+              <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?auto=format&fit=crop&w=400&q=80" alt="Material de Arte en Concreto" class="absolute inset-0 w-full h-full object-cover opacity-70 filter grayscale transition-transform duration-500 group-hover:scale-105">
+            </div>
+            <h3 class="font-display text-xl lg:text-2xl font-bold tracking-tight text-white mb-2">Material de "Arte en Concreto"</h3>
+            <p class="text-xs sm:text-sm text-concrete-400 font-light leading-relaxed">
+              Mortero polimérico de alta resistencia. Reproduce acabados de hormigón arquitectónico (fenólico y entablonado).
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/[0.08]">
+              <span class="text-[10px] tracking-[0.25em] text-concrete-500 uppercase">PRECIO</span>
+              <span class="font-mono text-lg text-white font-medium">$15.500 ARS</span>
+            </div>
+            <button onclick="addToCart(1, 'Material de Arte en Concreto', 15500)" class="w-full py-3 px-4 bg-concrete-100 hover:bg-white text-concrete-950 text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all duration-200 flex items-center justify-center gap-2 group-hover:shadow-[0_4px_20px_rgba(255,255,255,0.15)]">
+              <span>Añadir al Carrito</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Producto 2: Sellador -->
+        <article class="brutalist-card brutalist-card-hover rounded-sm p-6 sm:p-8 flex flex-col justify-between relative group">
+          <div class="absolute top-4 left-4 tie-hole"></div>
+          <div class="absolute top-4 right-4 tie-hole"></div>
+          
+          <div class="mb-6">
+            <div class="w-full h-48 bg-concrete-900 border border-white/10 relative overflow-hidden mb-6 flex items-center justify-center rounded-sm">
+              <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=400&q=80" alt="Sellador de Arte en Concreto" class="absolute inset-0 w-full h-full object-cover opacity-70 filter grayscale transition-transform duration-500 group-hover:scale-105">
+            </div>
+            <h3 class="font-display text-xl lg:text-2xl font-bold tracking-tight text-white mb-2">Sellador de "Arte en Concreto"</h3>
+            <p class="text-xs sm:text-sm text-concrete-400 font-light leading-relaxed">
+              Sellador hidrófugo al agua con terminación mate sedoso. Protege la porosidad estructural manteniendo el tono original.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/[0.08]">
+              <span class="text-[10px] tracking-[0.25em] text-concrete-500 uppercase">PRECIO</span>
+              <span class="font-mono text-lg text-white font-medium">$8.200 ARS</span>
+            </div>
+            <button onclick="addToCart(2, 'Sellador de Arte en Concreto', 8200)" class="w-full py-3 px-4 bg-concrete-100 hover:bg-white text-concrete-950 text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all duration-200 flex items-center justify-center gap-2 group-hover:shadow-[0_4px_20px_rgba(255,255,255,0.15)]">
+              <span>Añadir al Carrito</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+            </button>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- PANEL RESUMEN LATERAL (CARRITO) -->
+    <div class="w-full lg:w-1/3 mt-8 lg:mt-0 relative">
+      <aside class="brutalist-card rounded-sm p-6 sm:p-8 h-fit sticky top-8">
+        <div class="absolute top-4 left-4 tie-hole"></div>
+        <div class="absolute top-4 right-4 tie-hole"></div>
+        
+        <h3 class="font-display text-lg font-bold tracking-tight text-white mb-6 flex items-center justify-between border-b border-white/[0.08] pb-4">
+          <span>Resumen de Obra</span>
+          <span id="cart-count" class="text-[10px] tracking-[0.2em] text-concrete-300 uppercase px-2 py-0.5 border border-white/10 bg-white/[0.03]">0 ÍTEMS</span>
+        </h3>
+        
+        <div id="cart-items" class="max-h-[350px] overflow-y-auto pr-3 mb-6 space-y-4">
+          <p class="text-xs text-concrete-500 font-light text-center py-8">La lista de materiales está vacía.</p>
+        </div>
+
+        <div class="pt-6 border-t border-white/[0.08]">
+          <div class="flex justify-between items-center mb-6">
+            <span class="text-xs font-semibold uppercase tracking-[0.2em] text-concrete-400">Total</span>
+            <span id="cart-total" class="font-mono text-xl font-bold text-white">$0 ARS</span>
+          </div>
+          <button onclick="checkout()" id="checkout-btn" class="w-full py-4 px-4 bg-concrete-200 hover:bg-white text-concrete-950 text-xs font-semibold uppercase tracking-[0.2em] rounded-sm transition-all duration-200 shadow-[0_2px_15px_rgba(255,255,255,0.12)] opacity-50 cursor-not-allowed" disabled>
+            Procesar Pedido
+          </button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Notice Toast -->
+  <div id="noticeToast" class="fixed bottom-6 right-6 z-50 brutalist-card px-5 py-3 rounded-sm border border-white/30 text-xs font-mono text-white tracking-widest uppercase opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3 flex items-center gap-3">
+    <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
+    <span id="toastMessage">Material añadido al pedido</span>
+  </div>
+
+  <script>
+    // Dinámica del Haz de luz
+    const lightBeam = document.getElementById('lightBeam');
+    window.addEventListener('mousemove', (e) => {
+      const xPercent = (e.clientX / window.innerWidth - 0.5) * 60;
+      const yPercent = (e.clientY / window.innerHeight - 0.5) * 40;
+      lightBeam.style.transform = `rotate(-12deg) translate(${xPercent}px, ${yPercent}px) scale(1.3)`;
+    });
+
+    // Lógica del Dosificador
+    let calculatedBags = 0;
+
+    function toggleCalculator() {
+      const content = document.getElementById('calc-content');
+      const chevron = document.getElementById('calc-chevron');
+      const header = document.getElementById('calc-header');
+      
+      content.classList.toggle('hidden');
+      chevron.classList.toggle('rotate-180');
+      
+      const isOpen = !content.classList.contains('hidden');
+      header.setAttribute('data-open', isOpen.toString());
+    }
+
+    function calculateMaterial() {
+      const m2Input = parseFloat(document.getElementById('calc-m2').value);
+      const resultEl = document.getElementById('calc-result');
+      const addBtn = document.getElementById('calc-add-btn');
+      
+      if(m2Input && m2Input > 0) {
+        // Redondeo hacia arriba: 1 balde cada 10m2
+        calculatedBags = Math.ceil(m2Input / 10);
+        resultEl.innerText = `${calculatedBags} Balde${calculatedBags > 1 ? 's' : ''}`;
+        
+        addBtn.disabled = false;
+        addBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      } else {
+        calculatedBags = 0;
+        resultEl.innerText = '0 Baldes';
+        
+        addBtn.disabled = true;
+        addBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+    }
+
+    function addCalculatedToCart() {
+      if(calculatedBags > 0) {
+         // ID 1 corresponde al "Material de Arte en Concreto"
+         addToCart(1, 'Material de Arte en Concreto', 15500, calculatedBags);
+         
+         // Limpieza opcional del form
+         document.getElementById('calc-m2').value = '';
+         calculateMaterial();
+         toggleCalculator();
+      }
+    }
+
+    // Lógica del Carrito de Compras
+    let cart = [];
+
+    const formatARS = (amount) => {
+      return new Intl.NumberFormat('es-AR', {
+        style: 'currency',
+        currency: 'ARS',
+        minimumFractionDigits: 0
+      }).format(amount) + ' ARS';
+    };
+
+    function showToast(msg) {
+      const toast = document.getElementById('noticeToast');
+      const text = document.getElementById('toastMessage');
+      text.textContent = msg;
+      
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+      toast.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+      }, 3000);
+    }
+
+    // Se añadió el parámetro 'qty' con valor por defecto de 1
+    function addToCart(id, name, price, qty = 1) {
+      const existingItem = cart.find(item => item.id === id);
+      if (existingItem) {
+        existingItem.qty += qty;
+      } else {
+        cart.push({ id, name, price, qty: qty });
+      }
+      updateDOM();
+      
+      const itemWord = qty > 1 ? 'unidades añadidas' : 'añadida';
+      showToast(`${qty} ${itemWord}: ${name}`);
+    }
+
+    function updateQty(id, change) {
+      const itemIndex = cart.findIndex(item => item.id === id);
+      if (itemIndex !== -1) {
+        cart[itemIndex].qty += change;
+        if (cart[itemIndex].qty <= 0) {
+          cart.splice(itemIndex, 1);
+        }
+      }
+      updateDOM();
+    }
+
+    function updateDOM() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      const cartTotalEl = document.getElementById('cart-total');
+      const cartCountEl = document.getElementById('cart-count');
+      const headerCountEl = document.getElementById('header-cart-count');
+      const checkoutBtn = document.getElementById('checkout-btn');
+
+      cartItemsContainer.innerHTML = '';
+      let total = 0;
+      let count = 0;
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p class="text-xs text-concrete-500 font-light text-center py-8">La lista de materiales está vacía.</p>';
+        checkoutBtn.disabled = true;
+        checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      } else {
+        checkoutBtn.disabled = false;
+        checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+        cart.forEach(item => {
+          total += item.price * item.qty;
+          count += item.qty;
+
+          cartItemsContainer.innerHTML += `
+            <div class="flex flex-col p-4 bg-concrete-900/60 border border-white/[0.06] rounded-sm group">
+              <div class="flex justify-between items-start mb-3">
+                <span class="text-xs font-semibold text-white w-2/3 leading-relaxed tracking-wide">${item.name}</span>
+                <span class="text-[11px] font-mono text-concrete-400">${formatARS(item.price)}</span>
+              </div>
+              <div class="flex justify-between items-center border-t border-white/[0.04] pt-3">
+                <div class="flex items-center bg-black/40 rounded-sm border border-white/10 overflow-hidden">
+                  <button onclick="updateQty(${item.id}, -1)" class="px-2.5 py-1 hover:bg-white/10 text-concrete-300 transition-colors">-</button>
+                  <span class="px-3 py-1 text-xs font-mono text-white border-l border-r border-white/10">${item.qty}</span>
+                  <button onclick="updateQty(${item.id}, 1)" class="px-2.5 py-1 hover:bg-white/10 text-concrete-300 transition-colors">+</button>
+                </div>
+                <span class="text-xs font-mono font-bold text-white">${formatARS(item.price * item.qty)}</span>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      cartTotalEl.innerText = formatARS(total);
+      cartCountEl.innerText = `${count} ÍTEM${count !== 1 ? 'S' : ''}`;
+      headerCountEl.innerText = count;
+    }
+
+    function checkout() {
+      showToast("Conectando con plataforma de facturación...");
+      setTimeout(() => {
+        alert("Redirigiendo a pasarela con total de: " + document.getElementById('cart-total').innerText);
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

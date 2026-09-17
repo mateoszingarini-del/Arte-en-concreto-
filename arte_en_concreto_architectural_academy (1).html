@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-[#0b0d10] text-[#e8eaed] antialiased selection:bg-white selection:text-black">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arte en Concreto — Academia de Arquitectura & Encofrados</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Architectural Google Fonts: Syne & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Syne', 'sans-serif'],
+          },
+          colors: {
+            concrete: {
+              50: '#f6f7f8',
+              100: '#edeef1',
+              200: '#d7dadf',
+              300: '#b4b9c2',
+              400: '#8b929f',
+              500: '#6d7482',
+              600: '#555b68',
+              700: '#434752',
+              800: '#2c2f37',
+              850: '#1d2026',
+              900: '#14161b',
+              950: '#0b0d10',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Chiaroscuro and Architectural Concrete Grid */
+    :root {
+      --concrete-texture: url('concrete-texture.jpg');
+    }
+
+    .bg-concrete-wall {
+      background-color: #0d0f13;
+      background-image: 
+        radial-gradient(ellipse 70% 60% at 75% 15%, rgba(255, 255, 255, 0.08) 0%, rgba(13, 15, 19, 0) 70%),
+        radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.03) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(20, 23, 29, 0.88) 0%, rgba(10, 12, 16, 0.94) 100%),
+        var(--concrete-texture),
+        url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=2600&q=85');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: screen, normal, multiply, normal, normal;
+    }
+
+    /* Subtle Formwork Grid Seams & Tie-Holes (Puntos de anclaje fenólico) */
+    .formwork-grid {
+      background-size: 320px 240px;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
+
+    /* Ando-Style Diagonal Chiaroscuro Light Slit */
+    .light-slit {
+      background: linear-gradient(
+        115deg,
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(255, 255, 255, 0.05) 18%,
+        rgba(255, 255, 255, 0.01) 45%,
+        transparent 75%
+      );
+      filter: blur(40px);
+      transform: rotate(-12deg) scale(1.3);
+      pointer-events: none;
+    }
+
+    /* Brutalist Hairline Cards with Top-Light Specular Lip */
+    .brutalist-card {
+      background: linear-gradient(180deg, rgba(27, 30, 37, 0.65) 0%, rgba(16, 18, 23, 0.78) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.6),
+        0 24px 48px -12px rgba(0, 0, 0, 0.75),
+        0 1px 2px 0 rgba(0, 0, 0, 0.4);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .brutalist-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
+        0 32px 64px -16px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(255, 255, 255, 0.03);
+    }
+
+    /* Architectural Tie-Hole (Cono de encofrado con sombra biselada) */
+    .tie-hole {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #1f2229 0%, #0a0b0e 90%);
+      box-shadow: 
+        inset 0 1px 2px rgba(0, 0, 0, 0.95),
+        0 1px 0 rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Micro Noise Texture */
+    .grain-overlay {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+
+    /* Smooth custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0d10;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2c2f37;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #434752;
+    }
+  </style>
+</head>
+
+<body class="relative min-h-screen bg-concrete-wall font-sans text-concrete-200 overflow-x-hidden flex flex-col justify-between">
+
+  <!-- Micro Grain & Formwork Seams Layer -->
+  <div class="fixed inset-0 formwork-grid opacity-75 pointer-events-none z-0"></div>
+  <div class="fixed inset-0 grain-overlay pointer-events-none z-0"></div>
+
+  <!-- Dynamic Tadao Ando Light Shaft (Reacts to cursor) -->
+  <div id="lightBeam" class="fixed -top-40 right-10 w-[780px] h-[1100px] light-slit z-0 transition-transform duration-700 ease-out"></div>
+
+  <!-- Concrete Wall Formwork Anchor Points (Background Tie Holes) -->
+  <div class="fixed inset-0 pointer-events-none z-0 hidden lg:block">
+    <div class="absolute top-[120px] left-[80px] tie-hole opacity-40"></div>
+    <div class="absolute top-[120px] right-[80px] tie-hole opacity-40"></div>
+    <div class="absolute top-[360px] left-[80px] tie-hole opacity-40"></div>
+    <div class="absolute top-[360px] right-[80px] tie-hole opacity-40"></div>
+    <div class="absolute top-[600px] left-[80px] tie-hole opacity-40"></div>
+    <div class="absolute top-[600px] right-[80px] tie-hole opacity-40"></div>
+  </div>
+
+  <header class="relative z-20 w-full border-b border-white/[0.07] backdrop-blur-md bg-concrete-950/40">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 h-24 flex items-center justify-between">
+      
+      <!-- Brand Logomark -->
+      <div class="flex items-center gap-4 group cursor-pointer" onclick="resetView()">
+        <div class="w-9 h-9 border border-white/20 flex items-center justify-center relative bg-concrete-900/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+          <div class="w-2.5 h-2.5 bg-white"></div>
+          <div class="absolute -bottom-1 -right-1 w-1.5 h-1.5 bg-concrete-400"></div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-bold tracking-[0.25em] text-sm text-white uppercase">Arte en Concreto</span>
+          <span class="text-[10px] tracking-[0.35em] text-concrete-400 uppercase font-medium">Academia Arquitectónica</span>
+        </div>
+      </div>
+
+      <!-- Minimalist Monochromatic Nav -->
+      <nav class="hidden md:flex items-center space-x-10 text-xs tracking-[0.2em] uppercase font-medium text-concrete-300">
+        <a href="#filosofia" class="hover:text-white transition-colors duration-200">Filosofía</a>
+        <a href="#modulos" class="text-white border-b border-white pb-1">Módulos</a>
+        <a href="#especificaciones" class="hover:text-white transition-colors duration-200">Especificación</a>
+        <a href="#archivo" class="hover:text-white transition-colors duration-200">Archivo 026</a>
+      </nav>
+
+      <!-- Utility Trigger & Light Mode Switch -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <!-- Texture Customizer Input -->
+        <input type="file" id="bgUploader" accept="image/*" class="hidden" onchange="handleTextureUpload(event)">
+        <button onclick="document.getElementById('bgUploader').click()" class="flex items-center gap-2 px-3 py-1.5 border border-white/20 bg-white/[0.04] text-[11px] uppercase tracking-widest text-concrete-200 hover:text-white hover:border-white/40 rounded-sm transition-all shadow-sm" title="Subir archivo de textura (tu foto)">
+          <svg class="w-3.5 h-3.5 text-concrete-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span class="hidden sm:inline">Cargar Textura</span>
+        </button>
+
+        <button id="lightToggleBtn" class="hidden sm:flex items-center gap-2 px-3 py-1.5 border border-white/10 text-[11px] uppercase tracking-widest text-concrete-300 hover:text-white hover:border-white/30 rounded-sm transition-all" title="Alternar haz de luz Ando">
+          <span class="w-1.5 h-1.5 rounded-full bg-white/70"></span>
+          <span id="lightingStatusText">Luz: Chiaroscuro</span>
+        </button>
+
+        <a href="#modulos" class="text-xs uppercase tracking-[0.18em] font-semibold bg-white text-concrete-950 px-4 sm:px-5 py-2.5 rounded-sm hover:bg-concrete-100 transition-all duration-200 shadow-[0_2px_12px_rgba(255,255,255,0.12)]">
+          Acceso Academia
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto px-6 lg:px-12 pt-12 pb-16 w-full">
+    
+    <!-- Hero Headline & Architectural Meta-tags -->
+    <div class="mb-14 lg:mb-16">
+      
+      <!-- Monochromatic Index Badge -->
+      <div class="inline-flex items-center gap-3 mb-6 px-3 py-1 border-l border-white/40 bg-white/[0.02]">
+        <span class="text-[11px] tracking-[0.3em] uppercase text-concrete-400 font-mono">DOC. 04 // TADAO ANDO INFLUENCE</span>
+        <span class="w-1 h-1 bg-white/50 rounded-full"></span>
+        <span class="text-[11px] tracking-[0.25em] uppercase text-concrete-300">ESTÁNDAR ARQUITECTÓNICO</span>
+      </div>
+
+      <!-- Pure White Chiseled Typography -->
+      <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-[-0.03em] text-white leading-[1.08] max-w-5xl">
+        EL RIGOR DEL HORMIGÓN.<br>
+        <span class="text-concrete-400 font-normal">LA LUZ COMO MATERIA PRIMA.</span>
+      </h1>
+
+      <p class="mt-6 text-base sm:text-lg text-concrete-300 font-light leading-relaxed max-w-2xl">
+        Formación avanzada en revestimientos y moldajes de hormigón visto. Dominio artesanal del acabado fenólico, encofrado entablonado y conos cónicos con fidelidad estructural de galería.
+      </p>
+
+    </div>
+
+    <section id="modulos" class="grid grid-cols-1 md:grid-cols-3 gap-7 lg:gap-8 w-full">
+      
+      <!-- CARD 01: Hormigón Fenólico Liso -->
+      <article class="brutalist-card rounded-sm p-8 flex flex-col justify-between relative group cursor-pointer" onclick="openModuleDetail(1)">
+        <!-- Formwork Cone Pins (Top Corners) -->
+        <div class="absolute top-4 left-4 tie-hole"></div>
+        <div class="absolute top-4 right-4 tie-hole"></div>
+        
+        <div>
+          <!-- Module Numbering & Hairline Tag -->
+          <div class="flex items-center justify-between pb-6 border-b border-white/[0.08] mb-6">
+            <span class="font-mono text-xs text-concrete-400 tracking-widest font-medium">MÓDULO 01</span>
+            <span class="text-[10px] tracking-[0.25em] text-concrete-300 uppercase px-2 py-0.5 border border-white/10 bg-white/[0.03]">6 SEMANAS</span>
+          </div>
+
+          <!-- Minimal Geometric Line Icon -->
+          <div class="w-12 h-12 mb-6 flex items-center justify-center border border-white/15 bg-concrete-900/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] group-hover:border-white/40 transition-colors">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="0.5"></rect>
+              <circle cx="7" cy="7" r="1.2" fill="currentColor"></circle>
+              <circle cx="17" cy="7" r="1.2" fill="currentColor"></circle>
+              <circle cx="7" cy="17" r="1.2" fill="currentColor"></circle>
+              <circle cx="17" cy="17" r="1.2" fill="currentColor"></circle>
+            </svg>
+          </div>
+
+          <h3 class="font-display text-xl lg:text-2xl font-bold tracking-tight text-white mb-3">
+            Hormigón Fenólico
+          </h3>
+          
+          <p class="text-xs sm:text-sm text-concrete-400 font-light leading-relaxed mb-6">
+            Técnica de placas pulidas de encofrado industrial. Distribución modular de juntas finas, sellado de conos pasantes y control de porosidad mate.
+          </p>
+        </div>
+
+        <div>
+          <!-- Specs Spec-sheet list -->
+          <div class="space-y-2.5 py-4 my-2 border-t border-white/[0.06] text-[11px] font-mono text-concrete-400">
+            <div class="flex justify-between">
+              <span class="text-concrete-500">SUPERFICIE</span>
+              <span class="text-concrete-200">Lisa / Sedosa</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-concrete-500">JUNTA</span>
+              <span class="text-concrete-200">Hairline 1.5mm</span>
+            </div>
+          </div>
+
+          <!-- Action Button: Solid Chalk-White with Dark Text -->
+          <button class="w-full mt-4 py-3 px-4 bg-concrete-100 hover:bg-white text-concrete-950 text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all duration-200 flex items-center justify-center gap-2 group-hover:shadow-[0_4px_20px_rgba(255,255,255,0.15)]">
+            <span>Explorar Programa</span>
+            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </button>
+        </div>
+      </article>
+
+      <!-- CARD 02: Hormigón Entablonado -->
+      <article class="brutalist-card rounded-sm p-8 flex flex-col justify-between relative group cursor-pointer" onclick="openModuleDetail(2)">
+        <div class="absolute top-4 left-4 tie-hole"></div>
+        <div class="absolute top-4 right-4 tie-hole"></div>
+
+        <div>
+          <div class="flex items-center justify-between pb-6 border-b border-white/[0.08] mb-6">
+            <span class="font-mono text-xs text-concrete-400 tracking-widest font-medium">MÓDULO 02</span>
+            <span class="text-[10px] tracking-[0.25em] text-concrete-300 uppercase px-2 py-0.5 border border-white/10 bg-white/[0.03]">4 SEMANAS</span>
+          </div>
+
+          <div class="w-12 h-12 mb-6 flex items-center justify-center border border-white/15 bg-concrete-900/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] group-hover:border-white/40 transition-colors">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <line x1="3" y1="5" x2="21" y2="5"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+              <line x1="3" y1="15" x2="21" y2="15"></line>
+              <line x1="3" y1="20" x2="21" y2="20"></line>
+            </svg>
+          </div>
+
+          <h3 class="font-display text-xl lg:text-2xl font-bold tracking-tight text-white mb-3">
+            Hormigón Entablonado
+          </h3>
+          
+          <p class="text-xs sm:text-sm text-concrete-400 font-light leading-relaxed mb-6">
+            Impronta de vetas de pino y maderas cepilladas. Calibración de relieve, contrastes de desencofrante y tratamiento de sombras longitudinales.
+          </p>
+        </div>
+
+        <div>
+          <div class="space-y-2.5 py-4 my-2 border-t border-white/[0.06] text-[11px] font-mono text-concrete-400">
+            <div class="flex justify-between">
+              <span class="text-concrete-500">VETA</span>
+              <span class="text-concrete-200">Pino / Cepillado</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-concrete-500">RELIEVE</span>
+              <span class="text-concrete-200">Táctil 2 a 4mm</span>
+            </div>
+          </div>
+
+          <!-- Pale Gray Chalk Action Button -->
+          <button class="w-full mt-4 py-3 px-4 bg-concrete-200 hover:bg-white text-concrete-950 text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all duration-200 flex items-center justify-center gap-2 group-hover:shadow-[0_4px_20px_rgba(255,255,255,0.15)]">
+            <span>Ver Formación</span>
+            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </button>
+        </div>
+      </article>
+
+      <!-- CARD 03: Geometría & Conos Estructurales -->
+      <article class="brutalist-card rounded-sm p-8 flex flex-col justify-between relative group cursor-pointer" onclick="openModuleDetail(3)">
+        <div class="absolute top-4 left-4 tie-hole"></div>
+        <div class="absolute top-4 right-4 tie-hole"></div>
+
+        <div>
+          <div class="flex items-center justify-between pb-6 border-b border-white/[0.08] mb-6">
+            <span class="font-mono text-xs text-concrete-400 tracking-widest font-medium">MÓDULO 03</span>
+            <span class="text-[10px] tracking-[0.25em] text-concrete-300 uppercase px-2 py-0.5 border border-white/10 bg-white/[0.03]">MASTERCLASS</span>
+          </div>
+
+          <div class="w-12 h-12 mb-6 flex items-center justify-center border border-white/15 bg-concrete-900/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] group-hover:border-white/40 transition-colors">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9"></circle>
+              <circle cx="12" cy="12" r="3"></circle>
+              <line x1="12" y1="3" x2="12" y2="6"></line>
+              <line x1="12" y1="18" x2="12" y2="21"></line>
+            </svg>
+          </div>
+
+          <h3 class="font-display text-xl lg:text-2xl font-bold tracking-tight text-white mb-3">
+            Conos y Calafateo
+          </h3>
+          
+          <p class="text-xs sm:text-sm text-concrete-400 font-light leading-relaxed mb-6">
+            El detalle icónico de la arquitectura brutalista. Montaje métrico de tapones, sellantes hidrófugos de tono parejo y protección siloxánica.
+          </p>
+        </div>
+
+        <div>
+          <div class="space-y-2.5 py-4 my-2 border-t border-white/[0.06] text-[11px] font-mono text-concrete-400">
+            <div class="flex justify-between">
+              <span class="text-concrete-500">MÉTRICA</span>
+              <span class="text-concrete-200">Grilla 60x60 / 90x45</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-concrete-500">PROTECCIÓN</span>
+              <span class="text-concrete-200">Siloxano Mate</span>
+            </div>
+          </div>
+
+          <!-- Solid Chalk-White Button -->
+          <button class="w-full mt-4 py-3 px-4 bg-concrete-100 hover:bg-white text-concrete-950 text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all duration-200 flex items-center justify-center gap-2 group-hover:shadow-[0_4px_20px_rgba(255,255,255,0.15)]">
+            <span>Inscripción Directa</span>
+            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </button>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="mt-16 pt-10 border-t border-white/[0.07] grid grid-cols-1 md:grid-cols-3 gap-8 text-concrete-400 text-xs">
+      <div class="flex items-start gap-4">
+        <span class="font-mono text-white text-sm">01/</span>
+        <div>
+          <h4 class="text-white font-medium uppercase tracking-wider mb-1">Materia & Luz</h4>
+          <p class="font-light leading-relaxed">El hormigón no oculta imperfecciones; las enaltece a través de sombras rasantes calculadas en obra.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-4">
+        <span class="font-mono text-white text-sm">02/</span>
+        <div>
+          <h4 class="text-white font-medium uppercase tracking-wider mb-1">Cero Pigmentos Ruidosos</h4>
+          <p class="font-light leading-relaxed">Paleta estrictamente mineral: pizarra, grafito, ceniza volcánica y tiza blanca.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-4">
+        <span class="font-mono text-white text-sm">03/</span>
+        <div>
+          <h4 class="text-white font-medium uppercase tracking-wider mb-1">Acreditación Técnica</h4>
+          <p class="font-light leading-relaxed">Certificación para aplicadores profesionales, arquitectos proyectistas y jefes de terminaciones.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="relative z-20 border-t border-white/[0.08] bg-concrete-950/70 backdrop-blur-sm py-8 px-6 lg:px-12 text-xs">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-6 text-concrete-400">
+        <span class="font-mono tracking-widest text-concrete-300">ARTE EN CONCRETO © 2026</span>
+        <span class="hidden sm:inline-block w-1 h-1 bg-concrete-600 rounded-full"></span>
+        <span class="font-mono text-[11px] text-concrete-500">LAT. -34.6037° // LON. -58.3816°</span>
+      </div>
+
+      <div class="flex items-center gap-8 text-concrete-400 tracking-wider text-[11px] uppercase">
+        <a href="#terminos" class="hover:text-white transition-colors">Norma IRAM</a>
+        <a href="#contacto" class="hover:text-white transition-colors">Soporte Técnico</a>
+        <a href="#curaduria" class="hover:text-white transition-colors">Curaduría Ando</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="moduleModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="relative w-full max-w-2xl brutalist-card p-8 sm:p-10 rounded-sm border border-white/20 shadow-2xl">
+      
+      <!-- Tie Holes in Modal Header -->
+      <div class="absolute top-4 left-4 tie-hole"></div>
+      <div class="absolute top-4 right-4 tie-hole"></div>
+
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="absolute top-6 right-6 text-concrete-400 hover:text-white p-2 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <!-- Modal Content Slot -->
+      <div class="mt-2">
+        <span id="modalCategory" class="font-mono text-[11px] tracking-[0.3em] uppercase text-concrete-400">DETALLE DE CAPACITACIÓN</span>
+        <h2 id="modalTitle" class="font-display text-2xl sm:text-3xl font-extrabold text-white mt-2 mb-4 tracking-tight">Hormigón Fenólico</h2>
+        
+        <div class="w-full h-44 bg-concrete-900 border border-white/10 relative overflow-hidden mb-6 flex items-center justify-center">
+          <div class="absolute inset-0 bg-cover bg-center opacity-60" id="modalImage" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-concrete-950 via-concrete-950/40 to-transparent"></div>
+          <div class="relative z-10 text-center px-4">
+            <span class="text-[10px] uppercase font-mono tracking-widest px-3 py-1 bg-black/60 border border-white/20 text-concrete-200">Patrón de Luz Chiaroscuro</span>
+          </div>
+        </div>
+
+        <p id="modalDescription" class="text-sm text-concrete-300 font-light leading-relaxed mb-6">
+          Profundización en técnicas de nivelación de sustratos, aplicación de micro-morteros con base cementicia y polimérica para imitar tableros fenólicos de 18mm con juntas biseladas y orificios de anclaje simétricos.
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4 bg-concrete-900/80 border border-white/10 mb-8 font-mono text-xs">
+          <div>
+            <div class="text-concrete-500 text-[10px]">FORMATO</div>
+            <div class="text-white font-medium mt-0.5">Online HD + Tutoría</div>
+          </div>
+          <div>
+            <div class="text-concrete-500 text-[10px]">ACCESO</div>
+            <div class="text-white font-medium mt-0.5">Ilimitado 24/7</div>
+          </div>
+          <div>
+            <div class="text-concrete-500 text-[10px]">CERTIFICADO</div>
+            <div class="text-white font-medium mt-0.5">Homologado</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+          <button onclick="enrollAlert()" class="w-full sm:flex-1 py-3.5 px-6 bg-white hover:bg-concrete-200 text-concrete-950 font-semibold text-xs uppercase tracking-[0.2em] rounded-sm transition-all shadow-[0_2px_15px_rgba(255,255,255,0.2)]">
+            Confirmar Matrícula
+          </button>
+          <button onclick="closeModal()" class="w-full sm:w-auto py-3.5 px-6 border border-white/20 hover:border-white/50 text-white text-xs uppercase tracking-[0.2em] rounded-sm transition-all">
+            Cerrar Ficha
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Non-intrusive Toast Notice (Instead of alert()) -->
+  <div id="noticeToast" class="fixed bottom-6 right-6 z-50 brutalist-card px-5 py-3 rounded-sm border border-white/30 text-xs font-mono text-white tracking-widest uppercase opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3 flex items-center gap-3">
+    <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
+    <span id="toastMessage">Inscripción habilitada en plataforma</span>
+  </div>
+
+  <script>
+    // Module Data Dictionary
+    const moduleCatalog = {
+      1: {
+        title: "Hormigón Fenólico de Alta Gama",
+        category: "MÓDULO TÉCNICO 01 // SUPERFICIE PLANA",
+        image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80",
+        description: "Aprende a reproducir el acabado pulido y sedoso de los muros de Tadao Ando. Cubre la preparación de pastas autonivelantes, espátulas de filo rectificado, control de micro-burbujas y sellado hidrófugo invisible."
+      },
+      2: {
+        title: "Hormigón Entablonado Rusticado",
+        category: "MÓDULO TÉCNICO 02 // RELIEVE ORGÁNICO",
+        image: "https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=1200&q=80",
+        description: "Moldeado de vetas de madera real sobre revestimiento fresco. Tratamiento de nudos de tabla, calafateado de uniones entre maderas de 4 y 6 pulgadas, y pátinas minerales para profundidad óptica."
+      },
+      3: {
+        title: "Conos Cónicos y Juntas Estructurales",
+        category: "MÓDULO TÉCNICO 03 // DETALLE ARQUITECTÓNICO",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+        description: "Colocación métrica de conos de encofrado (tie holes) y calafateo técnico. Reglas de proporción áurea para la retícula de orificios pasantes, sellantes elastoméricos y acabado satinado mate."
+      }
+    };
+
+    // Modal Handlers
+    function openModuleDetail(id) {
+      const data = moduleCatalog[id];
+      if (!data) return;
+
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalCategory').textContent = data.category;
+      document.getElementById('modalDescription').textContent = data.description;
+      document.getElementById('modalImage').style.backgroundImage = `url('${data.image}')`;
+
+      const modal = document.getElementById('moduleModal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100', 'pointer-events-auto');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('moduleModal');
+      modal.classList.remove('opacity-100', 'pointer-events-auto');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    // Interactive Toast Notification
+    function showToast(msg) {
+      const toast = document.getElementById('noticeToast');
+      const text = document.getElementById('toastMessage');
+      text.textContent = msg;
+      
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+      toast.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+      }, 3500);
+    }
+
+    function enrollAlert() {
+      closeModal();
+      showToast("Solicitud registrada. Un asesor técnico te contactará.");
+    }
+
+    function resetView() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast("Vista restablecida al inicio de catálogo.");
+    }
+
+    // Interactive Chiaroscuro Light Slit Positioner on Mouse Move
+    const lightBeam = document.getElementById('lightBeam');
+    let lightingModes = ['Chiaroscuro', 'Cenital', 'Noche Pura'];
+    let currentModeIndex = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      if (currentModeIndex === 2) return; // In Pure Night mode, disable beam movement
+      const xPercent = (e.clientX / window.innerWidth - 0.5) * 60;
+      const yPercent = (e.clientY / window.innerHeight - 0.5) * 40;
+      lightBeam.style.transform = `rotate(-12deg) translate(${xPercent}px, ${yPercent}px) scale(1.3)`;
+    });
+
+    // Light Mode Switcher
+    const lightToggleBtn = document.getElementById('lightToggleBtn');
+    const lightingStatusText = document.getElementById('lightingStatusText');
+
+    lightToggleBtn.addEventListener('click', () => {
+      currentModeIndex = (currentModeIndex + 1) % lightingModes.length;
+      const mode = lightingModes[currentModeIndex];
+      lightingStatusText.textContent = `Luz: ${mode}`;
+
+      if (mode === 'Chiaroscuro') {
+        lightBeam.style.opacity = '1';
+        lightBeam.style.filter = 'blur(40px)';
+      } else if (mode === 'Cenital') {
+        lightBeam.style.opacity = '0.7';
+        lightBeam.style.filter = 'blur(90px)';
+      } else if (mode === 'Noche Pura') {
+        lightBeam.style.opacity = '0.08';
+        lightBeam.style.filter = 'blur(20px)';
+      }
+
+      showToast(`Modo lumínico ajustado: ${mode}`);
+    });
+
+    // Close modal on escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Handle Local Texture Upload
+    function handleTextureUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const objectUrl = URL.createObjectURL(file);
+      document.documentElement.style.setProperty('--concrete-texture', `url('${objectUrl}')`);
+      
+      // Also adjust blend mode slightly to let the fissures & cracks stand out
+      document.body.style.backgroundBlendMode = "screen, normal, multiply, normal";
+      
+      showToast(`Textura "${file.name}" integrada al muro de fondo.`);
+    }
+  </script>
+
+</body>
+</html>
