@@ -208,7 +208,7 @@
               </div>
               <div class="flex-1 w-full bg-black/30 border border-white/10 px-4 py-3.5 rounded-sm flex justify-between items-center h-[48px]">
                 <span class="text-[10px] tracking-[0.2em] text-concrete-500 uppercase">Requiere</span>
-                <span class="font-mono text-white text-sm font-bold" id="calc-result">0 Baldes</span>
+                <span class="font-mono text-white text-sm font-bold" id="calc-result">0 Bolsas</span>
               </div>
               <button onclick="addCalculatedToCart()" class="w-full sm:w-auto py-3.5 px-6 bg-concrete-200 hover:bg-white text-concrete-950 text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all duration-200 shadow-[0_2px_15px_rgba(255,255,255,0.12)] opacity-50 cursor-not-allowed" id="calc-add-btn" disabled>
                 Cargar al Pedido
@@ -351,7 +351,7 @@
         addBtn.classList.remove('opacity-50', 'cursor-not-allowed');
       } else {
         calculatedBags = 0;
-        resultEl.innerText = '0 Baldes';
+        resultEl.innerText = '0 Bolsas';
         
         addBtn.disabled = true;
         addBtn.classList.add('opacity-50', 'cursor-not-allowed');
