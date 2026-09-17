@@ -345,7 +345,7 @@
       if(m2Input && m2Input > 0) {
         // Redondeo hacia arriba: 1 balde cada 10m2
         calculatedBags = Math.ceil(m2Input / 10);
-        resultEl.innerText = `${calculatedBags} Bolsas${calculatedBags > 1 ? 's' : ''}`;
+        resultEl.innerText = `${calculatedBags} Bolsa${calculatedBags > 1 ? 's' : ''}`;
         
         addBtn.disabled = false;
         addBtn.classList.remove('opacity-50', 'cursor-not-allowed');
